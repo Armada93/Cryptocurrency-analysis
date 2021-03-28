@@ -50,4 +50,5 @@ crypto_EUR<-crypto*EUR_val
 # 4. TOTAL ASSET VALUE
 
 total_val<-sum(crypto_EUR)
-print(paste0(round(total_val, 2), " €"))
+total_val<-formatC(total_val, format="f", big.mark = " ", digits=2)
+print(paste0(total_val, " €"))
