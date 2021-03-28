@@ -1,4 +1,4 @@
-# R script for calculate current assets value
+# R script to calculate current assets value
 # 1. ASSETS
 
 # assets in  staking
@@ -49,6 +49,14 @@ crypto_EUR<-crypto*EUR_val
 
 # 4. TOTAL ASSET VALUE
 
-total_val<-sum(crypto_EUR)
+total_val<-sum(crypto)
+staking_val<-(luna_USD/EUR_USD)*luna_staking
+spot_val<-total_val-staking_val
+
 total_val<-formatC(total_val, format="f", big.mark = " ", digits=2)
+staking_val<-formatC(staking_val, format="f", big.mark = " ", digits=2)
+spot_val<-formatC(spot_val, format="f", big.mark = " ", digits=2)
+
 print(paste0(total_val, " €"))
+print(paste0("di cui in staking ", staking_val, " €"))
+cat("\t", total_val, "€", "\n\t -", spot_val, "€", "in spot", "\n\t - ", staking_val, "€", "in staking")
