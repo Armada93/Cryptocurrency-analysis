@@ -1,0 +1,52 @@
+# 1. ASSETS
+
+# assets in  staking
+luna_staking<-0
+# assets in exchange
+bnb<-0
+luna<-luna_staking+0
+fet<-0
+ocean<-0
+eth<-0
+ankr<-0
+xlm<-0
+sxp<-0
+
+crypto<-c(bnb, luna, fet, ocean, eth, ankr, xlm, sxp)
+
+# 2. WEB SCRAPING
+
+library(rvest)
+
+link<-"https://www.tradingview.com/markets/cryptocurrencies/prices-all/"
+html<-read_html(link)
+table<-html_node(html, css ="table")
+df<-as.data.frame(html_table(table), row.names = df[,1])
+row.names(df)<-df[,1]
+df<-df[,-1]
+
+EUR_USD<-html_text(html_element(read_html("https://finance.yahoo.com/quote/EURUSD=X/"), xpath = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[4]/div/div/div/div[3]/div[1]/div/span[1]"))
+EUR_USD<-as.numeric(EUR_USD)
+
+# 3. CRYPTO VALUE IN USD & EUR
+
+bnb_USD<-df["Binance Coin",3]
+luna_USD<-df["LUNA",3]
+fet_USD<-df["Fetch.ai",3]
+ocean_USD<-df["Ocean Protocol",3]
+eth_USD<-df["Ethereum",3]
+ankr_USD<-df["Ankr",3]
+xlm_USD<-df["Stellar",3]
+#sxp_USD<-df["Swipe",3]
+sxp_USD<-html_text(html_element(read_html("https://it.investing.com/crypto/swipe/sxp-usd"), css="#last_last"))
+sxp_USD<-as.numeric(gsub(",", ".", sxp_USD))
+
+USD_val<-c(bnb_USD, luna_USD, fet_USD, ocean_USD, eth_USD, ankr_USD, xlm_USD, sxp_USD)
+
+EUR_val<-USD_val/EUR_USD
+crypto_EUR<-crypto*EUR_val
+
+# 4. TOTAL ASSET VALUE
+
+total_val<-sum(crypto_EUR)
+print(paste0(round(total_val, 2), " €"))
