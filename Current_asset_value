@@ -57,6 +57,4 @@ total_val<-formatC(total_val, format="f", big.mark = " ", digits=2)
 staking_val<-formatC(staking_val, format="f", big.mark = " ", digits=2)
 spot_val<-formatC(spot_val, format="f", big.mark = " ", digits=2)
 
-print(paste0(total_val, " €"))
-print(paste0("di cui in staking ", staking_val, " €"))
 cat("\t", total_val, "€", "\n\t -", spot_val, "€", "in spot", "\n\t - ", staking_val, "€", "in staking")
