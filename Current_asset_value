@@ -27,7 +27,7 @@ df<-df[!duplicated(df[,1]),]
 row.names(df)<-df[,1]
 df<-df[,-1]
 
-EUR_USD<-html_text(html_element(read_html("https://finance.yahoo.com/quote/EURUSD=X/"), xpath = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[4]/div/div/div/div[3]/div[1]/div/span[1]"))
+EUR_USD<-html_text(html_element(read_html("https://finance.yahoo.com/quote/EURUSD=X/"), xpath = "/html/body/div[1]/div/div/div[1]/div/div[2]/div/div/div[5]/div/div/div/div[3]/div[1]/div/span[1]"))
 EUR_USD<-as.numeric(EUR_USD)
 
 # 3. CRYPTO VALUE IN USD / EUR
